@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\RechercheVoiture;
 use App\Entity\Voiture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Voiture|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +20,25 @@ class VoitureRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Voiture::class);
     }
+
+    public function findwhithPaginator(RechercheVoiture $recher):Query
+    {
+        $req =  $this->createQueryBuilder('v');
+            if($recher->getMinAnnee()){
+
+                $req= $req->andWhere('v.annee >= :min')
+                ->setParameter(':min', $recher->getMinAnnee());
+            }
+
+            if($recher->getMaxAnnee()){
+
+                $req= $req->andWhere('v.annee <= :max')
+                ->setParameter(':max', $recher->getMaxAnnee());
+            }
+        
+            return  $req->getQuery();
+    }
+
 
     // /**
     //  * @return Voiture[] Returns an array of Voiture objects

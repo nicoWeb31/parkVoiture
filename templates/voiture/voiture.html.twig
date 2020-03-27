@@ -4,6 +4,24 @@
 {% block monTitle %}Listes des voitures{% endblock %}
 
 {% block body %}
+{{form_start(form)}}
+<div class="row no-gutters align-items-center text-center">
+    <div class="col">
+        {{form_row(form.minAnnee)}}
+    </div>
+    <div class="col">
+        {{form_row(form.maxAnnee)}}
+    </div>
+    <div class="col-2">
+        <input type="submit" value="rechercher" class="btn btn-info">
+    </div>
+</div>
+{{form_end(form)}}
+<a href="" class="col btn btn-success d-block">Ajouter</a>
+
+
+
+
 <div class="row no-gutters">
     {% for voiture in voitures %}
     <div class="col-12 col-lg-6 p-1">
@@ -24,11 +42,24 @@
                     </p>
                 </div>
             </div>
+            {% if admin %}
+            <diV class="row no-gutters">
+                <a href="{{path('admin.creat.modif',{'id' : voiture.id})}}" class="col btn btn-warning">Modifier</a>
+                <a href="" class="col btn btn-danger">Supprimer</a>
+            
+            </diV>
+            {% endif %}
 
         </div>
-
     </div>
         
+
+
+
     {% endfor %}
+    {# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(voitures) }}
+</div>
 </div>
 {% endblock %}
