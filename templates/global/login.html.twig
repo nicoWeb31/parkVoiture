@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GlobalController!{% endblock %}
+
+
+
+{% block monTitle %}Login{% endblock %}
+
+{% block body %}
+{% if error %}
+    <div class="alert alert-danger">
+        le login et mot de passe ne sont pas bon
+    </div>
+{% endif %}
+<form action="{{path('login')}}" method="POST" >
+    
+    <div class="form-group">
+        <label> Login: </label>
+        <input type="text" placeholder="nom" class="form-control" name="_username" value="{{lastUserName}}">
+    </div>
+    
+    <div class="form-group">
+        <label> password: </label>
+        <input type="text" placeholder="password" class="form-control" name="_password">
+    </div>
+
+        <input type="submit" class="btn btn-primary" value="s'identifier">
+
+
+
+
+
+
+
+
+</form>
+
+
+
+
+
+{% endblock %}
